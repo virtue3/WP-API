@@ -65,6 +65,9 @@ class WP_JSON_Posts {
 	 * The optional $filter parameter modifies the query used to retrieve posts.
 	 * Accepted keys are 'post_type', 'post_status', 'number', 'offset',
 	 * 'orderby', and 'order'.
+	 * 
+	 * Adding 'tag', 'tag_id'
+	 *
 	 *
 	 * The optional $fields parameter specifies what fields will be included
 	 * in the response array.
@@ -101,12 +104,14 @@ class WP_JSON_Posts {
 		}
 
 		// Define our own in addition to WP's normal vars
-		$json_valid = array('posts_per_page');
+		$json_valid = array('posts_per_page', 'tag', 'tag_id');
 		$valid_vars = array_merge($valid_vars, $json_valid);
 
 		// Filter and flip for querying
 		$valid_vars = apply_filters('json_query_vars', $valid_vars);
 		$valid_vars = array_flip($valid_vars);
+
+
 
 		// Exclude the post_type query var to avoid dodging the permission
 		// check above
